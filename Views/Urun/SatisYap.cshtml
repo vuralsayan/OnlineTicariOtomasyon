@@ -1,0 +1,48 @@
+﻿@model OnlineTicariOtomasyon.Models.Siniflar.SatisHareket
+@{
+    ViewBag.Title = "SatisYap";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<br />
+<h2>Satış Yap</h2>
+<br />
+
+<form class="form-check form-group" method="post">
+    @Html.LabelFor(x => x.Urunid)
+    <input type="text" name="Urunid" value="@ViewBag.dgr2" class="form-control" readonly />
+    <br />
+    @Html.LabelFor(x => x.Personelid)
+    @Html.DropDownListFor(x => x.Personelid, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Cariid)
+    @Html.TextBoxFor(x => x.Cariid, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Adet)
+    <input type="number" name="Adet" class="form-control" id="txt1" onkeyup="sum();" onchange="sum()" />
+    <br />
+    @Html.LabelFor(x => x.Fiyat)
+    <input type="text" name="Fiyat" value="@ViewBag.dgr3" class="form-control" id="txt2" onkeyup="sum();" />
+    <br />
+    @Html.LabelFor(x => x.ToplamTutar)
+    <input type="text" name="ToplamTutar" class="form-control" id="txt3" readonly />
+    <br />
+    <button class="btn btn-primary">Satış Yap</button>
+</form>
+
+<script>
+    function sum() {
+        var sayi1 = document.getElementById('txt1').value;
+        var sayi2 = document.getElementById('txt2').value;
+
+        // Virgülle ayrılmış sayıları noktaya dönüştür
+        sayi1 = sayi1.replace(",", ".");
+        sayi2 = sayi2.replace(",", ".");
+
+        var sonuc = parseFloat(sayi1) * parseFloat(sayi2);
+
+        if (!isNaN(parseFloat(sonuc))) {
+            document.getElementById('txt3').value = sonuc;
+        }
+    }
+</script>
